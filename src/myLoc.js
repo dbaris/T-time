@@ -1,23 +1,72 @@
 var React = require('react');
 var Stop = require('./Stop.js');
-//var Ajax = require('react-ajax');
+// var Maps = require('./GoogleMaps.js');
+
+
+var maroon = '#7A2323';
+var orange = '#A25516';
+var purple = '#691042';
+var yellow = '#C8742E';
+
+var btnStyle = {
+  background: yellow,
+  border: '5px solid ' + orange,
+  color: purple,
+  borderRadius: '5px',
+  paddingLeft: '20%',
+  paddingRight: '20%',
+  margin: '50%',
+  fontFamily: 'Baloo Paaji',
+  fontSize: '20px'
+};
 
 var loadingStyle = {
-	color: '#A25516',
-	display: 'inline-block'
+	color: yellow,
+	display: 'inline-block', 
+  //border: '1px solid green',
+  margin: '0 auto'
+};
+
+var bodyStyle = {
+  //margin: '0 auto',
+  marginLeft: '5%',
+  marginRight: '5%',
+  width: '40%',
+  //border: '1px solid black',
+  background: maroon,
+  minHeight: '550px',
+  display: 'inline-block', 
+  verticalAlign: 'top'
+};
+
+var divTest = {
+ // border: '1px solid green',
+  margin: '0 auto',
+  width: '100%',
+  height: '100%',
 };
 
 var divStyle = {
 	textAlign: 'center'
-}
+};
 
 var divHeader = {
 	display: 'inline-block',
-	padding: '20px'
-}
+	paddingLeft: '20px',
+  paddingRight: '20px',
+  marginLeft: '30px',
+  marginRight: '30px'
+};
+
+var mapStyle = {
+  display: 'inline-block',
+  width: '40%',
+  verticalAlign: 'top',
+  color: yellow
+};
 
 function BackBtn (props) {
-	return <button style={props.btnStyle} onClick={props.clickFunc}>Back</button>;
+	return <button style={btnStyle} onClick={props.clickFunc}>Back</button>;
 }
 
 function Loading (props) {
@@ -28,13 +77,13 @@ var MyLoc = React.createClass({
   getInitialState: function() {
   	return {lat: null, 
   			long: null,
-  			text: <div><div style={divHeader}> 
+  			text: <div style={divTest}><div style={divHeader}> 
   				  <BackBtn btnStyle={this.props.btnStyle} clickFunc={this.props.onClick} /> 
   				  </div>
   				  <div style={divHeader}>
   				  <Loading />
   				  </div></div>,
-  			body: null};
+  			body: <div></div>};
   },
   componentDidMount: function() {
   	//console.log('here');
@@ -45,7 +94,7 @@ var MyLoc = React.createClass({
   	//this.setState({lat: position.coords.latitude, long: position.coords.longitude});
   	this.setState({lat: 42.3964, long: -71.1222})
 
-  	this.setState({text: (<h1>latitude: {this.state.lat} longitude: {this.state.long}</h1>)});
+  	//this.setState({text: (<h1>latitude: {this.state.lat} longitude: {this.state.long}</h1>)});
   	var url = "http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=wX9NwuHnZU2ToO7GmGR9uw&lat="+ this.state.lat +"&lon=" + this.state.long + "&format=json";
   	console.log(url);
   	fetch(url).then(this.responseHandler);
@@ -76,7 +125,10 @@ var MyLoc = React.createClass({
   	return (
   		<div>
   		<div style={loadingStyle}>{this.state.text}</div>
-  		<div>{this.state.body}</div>
+      <div>
+  		<div style={bodyStyle}>{this.state.body}</div>
+      <div style={mapStyle}> Map goes here! </div>
+      </div>
   		</div>); 
 
   }

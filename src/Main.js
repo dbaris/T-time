@@ -1,15 +1,19 @@
 var React = require('react');
-var Ajax = require('react-ajax');
+
+var maroon = '#7A2323';
+var orange = '#A25516';
+var purple = '#691042';
+var yellow = '#C8742E';
 
 var divStyle = {
   textAlign: 'center',
   fontSize: '25px',
   padding: '5px',
-  border: '5px solid #A25516',
-  background: '#C8742E',
+  border: '5px solid ' + orange,
+  background: yellow,
   margin: '0 auto',
   width: '50%',
-  color: '#691042',
+  color: purple
 };
 
 var hStyle = {
@@ -20,7 +24,7 @@ var hStyle = {
 var imgStyle = {
   heigth: '50%',
   width: '50%',
-  border: '5px solid #7A2323'
+  border: '5px solid ' + maroon 
 };
 
 var pStyle = {
@@ -28,9 +32,9 @@ var pStyle = {
 };
 
 var btnStyle = {
-  background: '#A25516',
+  background: orange,
   border: 'none',
-  color: '#691042',
+  color: purple,
   borderRadius: '5px',
   padding: '5%',
   margin: '5%',
@@ -41,9 +45,6 @@ var btnStyle = {
 var Main = React.createClass({
 	responseHandler: function(response) {
     return (<button onClick={this.props.showLoc} style={btnStyle}>By My Location</button>);
-  },
-  ajax: function() {
-    return <Ajax url="http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=wX9NwuHnZU2ToO7GmGR9uw&lat=42.346961&lon=-71.076640&format=json" onResponse={this.responseHandler} />
   },
 
   render: function() {

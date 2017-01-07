@@ -3,25 +3,37 @@ var MyLoc = require('./myLoc.js');
 var Main = require('./Main.js');
 
 // COLOR SCHEME
-// purple - 67003A
-// orange - 803A00
-//        - light shade - C57633
 
-var divOuterStyle = {
-  background: '#7A2323',
-  //border: '1px solid blue',
+var maroon = '#7A2323';
+var orange = '#A25516';
+var purple = '#691042';
+
+
+var backgroundStyle = {
+  background: maroon,
   height: '100%',
-  padding: '10%',
-  fontFamily: 'Baloo Paaji'
+  width: '100%'
 };
 
+var divOuterStyle = {
+  background: maroon,
+  height: '100%',
+  width: '100%',
+  //padding: '10%',
+  fontFamily: 'Baloo Paaji',
+};
+
+// var divInnerStyle = {
+//   padding: '5%'
+// }
+
 var btnStyle = {
-  background: '#A25516',
-  border: 'none',
-  color: '#691042',
+  background: orange,
+  border: '3px solid green',
+  color: purple,
   borderRadius: '5px',
-  padding: '2%',
-  margin: '5%',
+  padding: '20%',
+  margin: '50%',
   fontFamily: 'Baloo Paaji',
   fontSize: '20px'
 };
@@ -37,7 +49,7 @@ var App = React.createClass({
       text: 
       <div>
     
-      <MyLoc btnStyle={btnStyle} onClick={this.hideLocation}/>
+      <MyLoc onClick={this.hideLocation}/>
       </div>,
 
     });
@@ -59,11 +71,10 @@ var App = React.createClass({
   },
   render: function() {
     return (
-      <div>
+      <div style={backgroundStyle}>
       <link href="https://fonts.googleapis.com/css?family=Baloo+Paaji" rel="stylesheet"/>
       <div style={divOuterStyle}>
       <div>{this.state.text}</div>
-
       </div>
       </div>
       );
