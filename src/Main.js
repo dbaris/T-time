@@ -1,4 +1,5 @@
 var React = require('react');
+var Ajax = require('react-ajax');
 
 var divStyle = {
   textAlign: 'center',
@@ -38,14 +39,22 @@ var btnStyle = {
 };
 
 var Main = React.createClass({
-	render: function() {
+	responseHandler: function(response) {
+    return (<button onClick={this.props.showLoc} style={btnStyle}>By My Location</button>);
+  },
+  ajax: function() {
+    return <Ajax url="http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=wX9NwuHnZU2ToO7GmGR9uw&lat=42.346961&lon=-71.076640&format=json" onResponse={this.responseHandler} />
+  },
+
+  render: function() {
+
 		return (
 			<div style={divStyle}>
 			<h1 style={hStyle}>T-Time</h1>
        		<p style={pStyle}>Your friend for finding the closest MBTA stations and upcoming ride times.</p>
 	       <img style={imgStyle} src='./Tmap.jpeg' alt="bostonT"/>
 	       <div>
-	       <button onClick={this.props.showLoc} style={btnStyle}>By My Location</button>
+         <button onClick={this.props.showLoc} style={btnStyle}>By My Location</button>
 	       <button onClick={this.props.showAll} style={btnStyle}>All Stations</button>
 	       </div>
 	       </div>);

@@ -32,12 +32,14 @@ var App = React.createClass({
             text: <Main showLoc={this.showLocation} showAll={this.showAll}/>};
   },
   showLocation: function() {
+     
     this.setState({main: false, 
       text: 
       <div>
-      <button style={btnStyle} onClick={this.hideLocation}>Back</button>
-      <MyLoc />
-      </div>
+    
+      <MyLoc btnStyle={btnStyle} onClick={this.hideLocation}/>
+      </div>,
+
     });
   },
   hideLocation: function() {
@@ -61,6 +63,7 @@ var App = React.createClass({
       <link href="https://fonts.googleapis.com/css?family=Baloo+Paaji" rel="stylesheet"/>
       <div style={divOuterStyle}>
       <div>{this.state.text}</div>
+
       </div>
       </div>
       );
