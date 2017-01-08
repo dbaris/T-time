@@ -2,13 +2,12 @@ var React = require('react');
 var MyLoc = require('./myLoc.js');
 var Main = require('./Main.js');
 
-// COLOR SCHEME
-
+// Color Scheme Variables
 var maroon = '#7A2323';
 var orange = '#A25516';
 var purple = '#691042';
 
-
+// CSS Variables
 var backgroundStyle = {
   background: maroon,
   height: '100%',
@@ -37,6 +36,8 @@ var btnStyle = {
   fontFamily: 'Baloo Paaji',
   fontSize: '20px'
 };
+
+
 
 var App = React.createClass({
   getInitialState: function() {

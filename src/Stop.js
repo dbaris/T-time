@@ -1,9 +1,12 @@
 var React = require ('react');
 
+// Color Scheme Variables
 //var maroon = '#7A2323';
 var orange = '#A25516';
 var purple = '#691042';
 var yellow = '#C8742E';
+
+// CSS Variables
 
 // var btnStyle = {
 //   background: orange,
@@ -31,7 +34,9 @@ var btnStyle = {
 
 var Stop = React.createClass({
 	render: function() {
-		console.log(this.props.name);
+		//console.log(this.props.name);
+
+    // Round distance to nearest hundredth
     var dist = Math.round(this.props.dist * 100) / 100;
 		return (<button style={btnStyle}>
       <div>{this.props.name}</div>

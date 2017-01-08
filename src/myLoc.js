@@ -1,13 +1,16 @@
+// Page Shows Closest Stations based on location
+
 var React = require('react');
 var Stop = require('./Stop.js');
 // var Maps = require('./GoogleMaps.js');
 
-
+// Color Scheme Variables
 var maroon = '#7A2323';
 var orange = '#A25516';
 var purple = '#691042';
 var yellow = '#C8742E';
 
+// CSS Variables
 var btnStyle = {
   background: yellow,
   border: '5px solid ' + orange,
@@ -65,6 +68,10 @@ var mapStyle = {
   color: yellow
 };
 
+// Back Button
+//  --> Props
+//    * btnStyle - styling for button
+//    * onClick - click action
 function BackBtn (props) {
 	return <button style={btnStyle} onClick={props.clickFunc}>Back</button>;
 }
@@ -75,7 +82,8 @@ function Loading (props) {
 
 var MyLoc = React.createClass({
   getInitialState: function() {
-  	return {lat: null, 
+  	return {
+        lat: null, 
   			long: null,
   			text: <div style={divTest}><div style={divHeader}> 
   				  <BackBtn btnStyle={this.props.btnStyle} clickFunc={this.props.onClick} /> 
@@ -85,45 +93,59 @@ var MyLoc = React.createClass({
   				  </div></div>,
   			body: <div></div>};
   },
+
+  // Runs after initial render; begins API calls
   componentDidMount: function() {
-  	//console.log('here');
   	navigator.geolocation.getCurrentPosition(this.success);
   },
+
+  // Runs upon presence of geolocation, calls MBTA API
   success: function(position) {
   	// NOTE - hardcoding in vars (from far away); replace w THIS LINE
   	//this.setState({lat: position.coords.latitude, long: position.coords.longitude});
   	this.setState({lat: 42.3964, long: -71.1222})
 
-  	//this.setState({text: (<h1>latitude: {this.state.lat} longitude: {this.state.long}</h1>)});
-  	var url = "http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=wX9NwuHnZU2ToO7GmGR9uw&lat="+ this.state.lat +"&lon=" + this.state.long + "&format=json";
-  	console.log(url);
+    // NOTE - development API key hardcoded in (for now)
+    var apikey = "wX9NwuHnZU2ToO7GmGR9uw";
+  	var url = "http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=" + apikey + "&lat="+ this.state.lat +"&lon=" + this.state.long + "&format=json";
+
+    // GET request
   	fetch(url).then(this.responseHandler);
   	return null;
   },
+
+  // Success function for MBTA api
   responseHandler: function(response) {
   	// use arrow to avoid rebinding 'this' in callback function
   	response.json().then((data) => {
-      // create key components for first 8 stops
+      // create Stop components for first 8 stops
       var i = 0;
+      var num_stops = 8;
+
       var stops = data['stop'].map(function(stop) {
           i++;
           var name = stop['stop_name'];
           var dist = stop['distance'];
 
-          //note - change var here to limit number of stops
-     			return (i <= 8) ? <Stop name={name} dist={dist} key={i}/> : <p key={i}></p>;
+     			return (i <= num_stops) ? <Stop name={name} dist={dist} key={i}/> : <p key={i}></p>;
    		 });
 
+      // Wrap stop elements in div (thanks React!)
   		var info = <div style={divStyle}> {stops} </div>;
   		
-  		this.setState({text: <div> <div style={divHeader}>
-  							 <BackBtn btnStyle={this.props.btnStyle} clickFunc={this.props.onClick} /> 
-  							 </div><div style={divHeader}>
-  							 <h1>Closest Stops</h1>
-  							 </div></div>});
-  		this.setState({body: info});
+      // Update Components
+  		this.setState({
+        text: <div> 
+              <div style={divHeader}>
+  						<BackBtn btnStyle={this.props.btnStyle} clickFunc={this.props.onClick} /> 
+  						</div>
+              <div style={divHeader}>
+  						<h1>Closest Stops</h1>
+  						</div>
+              </div>,
+        body: info 
+      });
   	});
-  	
   },
 
   render: function() {

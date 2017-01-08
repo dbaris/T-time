@@ -1,10 +1,12 @@
 var React = require('react');
 
+// Color Scheme
 var maroon = '#7A2323';
 var orange = '#A25516';
 var purple = '#691042';
 var yellow = '#C8742E';
 
+// CSS variables
 var divStyle = {
   textAlign: 'center',
   fontSize: '25px',
@@ -42,13 +44,9 @@ var btnStyle = {
   fontSize: '20px'
 };
 
+// Main Page of App (By Location & All Station buttons)
 var Main = React.createClass({
-	responseHandler: function(response) {
-    return (<button onClick={this.props.showLoc} style={btnStyle}>By My Location</button>);
-  },
-
-  render: function() {
-
+	render: function() {
 		return (
 			<div style={divStyle}>
 			<h1 style={hStyle}>T-Time</h1>
