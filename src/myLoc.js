@@ -103,12 +103,16 @@ var MyLoc = React.createClass({
   responseHandler: function(response) {
   	// use arrow to avoid rebinding 'this' in callback function
   	response.json().then((data) => {
-  		//create Stop component for each stop
- 		var stops = data['stop'].map(function(stop) {
- 			var name = stop['stop_name'];
- 			var key = stop['stop_id']
- 			return <Stop name={name} key={key}/>
- 		});
+      // create key components for first 8 stops
+      var i = 0;
+      var stops = data['stop'].map(function(stop) {
+          i++;
+          var name = stop['stop_name'];
+          var dist = stop['distance'];
+
+          //note - change var here to limit number of stops
+     			return (i <= 8) ? <Stop name={name} dist={dist} key={i}/> : <p key={i}></p>;
+   		 });
 
   		var info = <div style={divStyle}> {stops} </div>;
   		
@@ -121,6 +125,7 @@ var MyLoc = React.createClass({
   	});
   	
   },
+
   render: function() {
   	return (
   		<div>
@@ -136,5 +141,6 @@ var MyLoc = React.createClass({
 
 module.exports = MyLoc;
 
-// google ~maps~ 
+// google ~maps~, perhaps ?
 //		http://revelry.co/google-maps-react/
+//    http://stackoverflow.com/questions/29532356/google-maps-in-react 

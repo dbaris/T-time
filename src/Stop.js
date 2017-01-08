@@ -32,7 +32,11 @@ var btnStyle = {
 var Stop = React.createClass({
 	render: function() {
 		console.log(this.props.name);
-		return (<button style={btnStyle}>{this.props.name}</button>);
+    var dist = Math.round(this.props.dist * 100) / 100;
+		return (<button style={btnStyle}>
+      <div>{this.props.name}</div>
+      <div>{dist} miles away</div>
+      </button>);
 	}
 });
 
