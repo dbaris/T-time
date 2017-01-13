@@ -1,11 +1,12 @@
 var React = require('react');
 var MyLoc = require('./myLoc.js');
 var Main = require('./Main.js');
+var AllLoc = require('./AllLoc.js');
 
 // Color Scheme Variables
 var maroon = '#7A2323';
-var orange = '#A25516';
-var purple = '#691042';
+//var orange = '#A25516';
+//var purple = '#691042';
 
 // CSS Variables
 var backgroundStyle = {
@@ -26,19 +27,6 @@ var divOuterStyle = {
 //   padding: '5%'
 // }
 
-var btnStyle = {
-  background: orange,
-  border: '3px solid green',
-  color: purple,
-  borderRadius: '5px',
-  padding: '20%',
-  margin: '50%',
-  fontFamily: 'Baloo Paaji',
-  fontSize: '20px'
-};
-
-
-
 var App = React.createClass({
   getInitialState: function() {
     return {main: true, 
@@ -49,7 +37,6 @@ var App = React.createClass({
     this.setState({main: false, 
       text: 
       <div>
-    
       <MyLoc onClick={this.hideLocation}/>
       </div>,
 
@@ -61,9 +48,8 @@ var App = React.createClass({
   showAll: function() {
     this.setState({main: false,
       text: 
-      <div>
-      <button style={btnStyle} onClick={this.hideAll}>Back</button>
-      <h1>All stations listed here: (jklolz)</h1>
+      <div>    
+      <AllLoc onClick={this.hideAll}/>
       </div>
     })
   },

@@ -1,4 +1,4 @@
-var React = require ('react');
+var React = require('react');
 
 // Color Scheme Variables
 //var maroon = '#7A2323';
@@ -7,7 +7,6 @@ var purple = '#691042';
 var yellow = '#C8742E';
 
 // CSS Variables
-
 var btnStyle = {
   background: yellow,
   border: '5px solid ' + orange,
@@ -16,21 +15,17 @@ var btnStyle = {
   padding: '5%',
   margin: '3%',
   fontFamily: 'Baloo Paaji',
-  fontSize: '15px',
+  fontSize: '20px',
   width: '100%'
 };
 
-var Stop = React.createClass({
+var Button = React.createClass({
 	render: function() {
-		//console.log(this.props.name);
-
-    // Round distance to nearest hundredth
-    var dist = Math.round(this.props.dist * 100) / 100;
-		return (<button style={btnStyle}>
-      <div>{this.props.name}</div>
-      <div>{dist} miles away</div>
-      </button>);
+		return (
+			<button style={btnStyle} onClick={this.props.onClick}>
+      		<div>{this.props.name}</div>
+      		</button>);
 	}
 });
 
-module.exports = Stop;
+module.exports = Button;

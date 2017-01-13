@@ -85,7 +85,8 @@ var MyLoc = React.createClass({
   	return {
         lat: null, 
   			long: null,
-  			text: <div style={divTest}><div style={divHeader}> 
+  			text: <div style={divTest}>
+            <div style={divHeader}> 
   				  <BackBtn btnStyle={this.props.btnStyle} clickFunc={this.props.onClick} /> 
   				  </div>
   				  <div style={divHeader}>
@@ -96,7 +97,9 @@ var MyLoc = React.createClass({
 
   // Runs after initial render; begins API calls
   componentDidMount: function() {
-  	navigator.geolocation.getCurrentPosition(this.success);
+  	navigator.geolocation.getCurrentPosition(this.success, function() {
+      console.log('no geoloc! should crash ~gracefully~');
+    });
   },
 
   // Runs upon presence of geolocation, calls MBTA API
@@ -109,8 +112,8 @@ var MyLoc = React.createClass({
     var apikey = "wX9NwuHnZU2ToO7GmGR9uw";
   	var url = "http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=" + apikey + "&lat="+ this.state.lat +"&lon=" + this.state.long + "&format=json";
 
-    // GET request
-  	fetch(url).then(this.responseHandler);
+    // GET request - if user has already changed pages, will not call fetch
+  	(this.state.lat != null && this.state.lon != null) ? fetch(url).then(this.responseHandler) : url = '';
   	return null;
   },
 
